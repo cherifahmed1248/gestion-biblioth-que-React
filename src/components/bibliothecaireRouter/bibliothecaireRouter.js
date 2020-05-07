@@ -27,7 +27,7 @@ import {
 } from '@ant-design/icons';
 
 
-function BibliothecaireRouter() {
+function BibliothecaireRouter(props) {
 
     const { Header, Content, Footer, Sider } = Layout;
     const { SubMenu } = Menu;
@@ -45,7 +45,8 @@ function BibliothecaireRouter() {
 
 
         <Layout>
-
+            {console.log(localStorage.getItem("user"))}
+            {console.log('props.location.state: ', props.location.state)}
             <Sider
                 collapsible collapsed={collapsed} onCollapse={() => toggle()}
             >
@@ -110,7 +111,7 @@ function BibliothecaireRouter() {
             </Sider>
             <Layout className="site-layout" >
                 <Header className="site-layout-background"  >
-                    <Menu theme="light" mode="inline" mode="horizontal" style={{
+                    <Menu theme="light" mode="horizontal" style={{
                         float: "right"
                     }} defaultSelectedKeys={[location.pathname]}
                     >
@@ -129,7 +130,6 @@ function BibliothecaireRouter() {
                         </SubMenu>
 
                     </Menu>
-
 
 
                 </Header>
