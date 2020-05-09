@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import 'antd/dist/antd.css';
@@ -6,22 +6,39 @@ import tof from "../img/ISAMM.png"
 
 import { Form, Input, Button, Card, Col, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { seConnecter } from "../../services/adherents.service"
 
 
-function Login() {
+function Login({ logintest }) {
+
     const history = useHistory();
+    const log = async (values) => {
+        var test = await seConnecter(values)
+        console.log('test: ', test);
+        localStorage.setItem('user', test);
+        console.log("localStorage.setItem('user', test): ", localStorage.getItem('user'));
+
+        return test
+    }
+
 
     const onFinish = values => {
-        console.log('Received values of form: ', values);
 
-        if (values.username === 'ahmed' && values.password === '12481248') {
-            console.log("Ahmed",
-                values.username === 'ahmed' && values.password === '12481248')
-            history.push("/home");
+        log(values).then(function (value) {
+            console.log('value: ', value);
+            value === "false" ?
+                value = false :
+                value = true
+            if (value == true) {
+                console.log('value: ', value);
 
-        }
+                logintest();
+                history.push("/");
+            }
+        });
 
     };
+
     return (
         <>
 
@@ -50,15 +67,15 @@ function Login() {
                             onFinish={onFinish}
                         >
                             <Form.Item
-                                name="username"
+                                name="email"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your Username!',
+                                        message: 'Please input your email!',
                                     },
                                 ]}
                             >
-                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
                             </Form.Item>
                             <Form.Item
                                 name="password"

@@ -1,12 +1,12 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Result, Button, Typography } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
-function Banni() {
+function Banni({ logout }) {
     const { Paragraph } = Typography;
-
+    const history = useHistory();
     return (
         <Result
             status="error"
@@ -14,14 +14,9 @@ function Banni() {
             subTitle="please contact our librarian for more details"
             extra={[
 
-                <Link to="/login" style={{
-                    marginLeft: "1%",
-
-                }}>
-                    <Button type="primary" key="console">
-                        Se connecter
+                <Button type="primary" key="console" onClick={() => (logout(), history.push("/login"))}>
+                    Logout
                         </Button>
-                </Link>
             ]}
         >
             <div className="desc">

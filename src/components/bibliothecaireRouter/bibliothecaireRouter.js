@@ -18,16 +18,23 @@ import {
 import GestionLivre from "../gestionLivre/gestionLivre"
 import DetailsLivre from "../detailsLivre/detailsLivre"
 
+import Gestionadhérents from "../Gestionadhérents/Gestionadhérents"
+import AdhérentLivres from "../Gestionadhérents/AdhérentLivres/AdhérentLivres"
 import Page404 from "../page404/page404"
 import { Layout, Menu } from 'antd';
+import { useHistory } from "react-router-dom";
+
 import {
     ReadOutlined,
     HomeOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import { getAdherentById } from "../../services/adherents.service";
 
 
-function BibliothecaireRouter(props) {
+function BibliothecaireRouter({ logout }) {
+
+    const history = useHistory();
 
     const { Header, Content, Footer, Sider } = Layout;
     const { SubMenu } = Menu;
@@ -45,8 +52,7 @@ function BibliothecaireRouter(props) {
 
 
         <Layout>
-            {console.log(localStorage.getItem("user"))}
-            {console.log('props.location.state: ', props.location.state)}
+            {/* ------------------------------------Left Menu --------------------------------------- */}
             <Sider
                 collapsible collapsed={collapsed} onCollapse={() => toggle()}
             >
@@ -85,14 +91,13 @@ function BibliothecaireRouter(props) {
 
         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/bibliothecaire/gestionadherents" icon={<UserOutlined />}>
-                        <Link to="/bibliothecaire/gestionadherents" style={{
+                    <Menu.Item key="/bibliothecaire/gestionadhérents" icon={<UserOutlined />}>
+                        <Link to="/bibliothecaire/gestionadhérents" style={{
                             color: "rgba(255, 255, 255, 0.65)"
                         }}
                         >
-                            {console.log('location: ', location.pathname)}
 
-            Gestion des Adhérents
+                            Gestion des Adhérents
 
         </Link>
                     </Menu.Item>
@@ -103,13 +108,14 @@ function BibliothecaireRouter(props) {
                         <Link to="/bibliothecaire/gestionlivre/1" style={{
                             color: "rgba(255, 255, 255, 0.65)"
                         }}> First book</Link>
-
                     </Menu.Item>
 
 
                 </Menu>
             </Sider>
             <Layout className="site-layout" >
+                {/* ------------------------------------Header Menu --------------------------------------- */}
+
                 <Header className="site-layout-background"  >
                     <Menu theme="light" mode="horizontal" style={{
                         float: "right"
@@ -123,10 +129,9 @@ function BibliothecaireRouter(props) {
                                 home
                         </Link>
                         </Menu.Item>
-                        <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                            <Menu.Item key="3">Tom</Menu.Item>
-                            <Menu.Item key="4">Bill</Menu.Item>
-                            <Menu.Item key="5">Alex</Menu.Item>
+                        <SubMenu key="sub1" icon={<UserOutlined />} title={getAdherentById(localStorage.getItem('user')).username}>
+                            <Menu.Item key="3" onClick={() => (logout(), history.push("/login"))}>Logout</Menu.Item>
+
                         </SubMenu>
 
                     </Menu>
@@ -151,6 +156,15 @@ function BibliothecaireRouter(props) {
                                 </Route>
                                 <Route exact path={`${path}/`}>
                                     <Redirect to={`${path}/gestionLivre`} />
+                                </Route>
+                                <Route exact path={`${path}/gestionadhérents`}>
+
+                                    <Gestionadhérents />
+                                </Route>
+
+                                <Route path={`${path}/gestionadhérents/:id`}>
+
+                                    <AdhérentLivres />
                                 </Route>
                                 <Route path={`${path}/`}>
                                     <Page404 />

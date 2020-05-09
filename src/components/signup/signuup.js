@@ -2,26 +2,44 @@ import React, { useState } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import tof from "../img/ISAMM.png"
+import { addAdherent } from "../../services/adherents.service"
 
 import {
     Form, Input, Button, Select,
     Card, Col, Row, Tooltip, DatePicker
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-function Signup() {
+function Signup({ login }) {
     const { Option } = Select;
     const [user, setUser] = useState(false)
     const history = useHistory();
 
-    const onFinish = values => {
+    const add = async (values) => {
+        var test = await addAdherent(values)
+        localStorage.setItem('user', test.key);
+        console.log("localStorage.getItem('user')=" + localStorage.getItem('user'));
 
-        console.log('Received values of form: ', values);
-        localStorage.setItem('user', values);
-        console.log(localStorage.getItem('user'))
-        history.push({
-            pathname: '/bibliothecaire/gestionLivre',
-            state: values.username
+    }
+
+    const onFinish = values => {
+        console.log('values.getDate: ', values.date._i)
+
+
+
+
+        add(values).then(function (value) {
+            console.log('value: ', value);
+            value === "false" ?
+                value = false :
+                value = true
+            if (value == true) {
+                console.log('value: ', value);
+
+                login();
+                history.push("/");
+            }
         });
+
     };
 
     const config = {
@@ -41,18 +59,7 @@ function Signup() {
             span: 16,
         },
     };
-    const prefixSelector = (
-        <Form.Item name="prefix" noStyle>
-            <Select
-                style={{
-                    width: 80,
-                }}
-            >
-                <Option value="216">+216</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        </Form.Item>
-    );
+
     return (
         <>
 
@@ -168,7 +175,7 @@ function Signup() {
                                 <Input />
                             </Form.Item>
                             <Form.Item name="date" label="Date de naissance" {...config}>
-                                <DatePicker />
+                                <DatePicker format="YYYY/MM/DD" />
                             </Form.Item>
 
                             <Form.Item
@@ -182,7 +189,6 @@ function Signup() {
                                 ]}
                             >
                                 <Input
-                                    addonBefore={prefixSelector}
                                     style={{
                                         width: '100%',
                                     }}
