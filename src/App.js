@@ -30,6 +30,9 @@ import State from './components/state/state';
 
 
 function App() {
+  if (localStorage.getItem('user') === null) {
+    localStorage.setItem('user', "fasle");
+  }
   let authe
   localStorage.getItem('user') === "false" ?
     authe = JSON.parse(localStorage.getItem('user'))
