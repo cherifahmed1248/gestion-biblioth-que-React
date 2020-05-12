@@ -7,10 +7,12 @@ import 'antd/dist/antd.css';
 import { Descriptions } from 'antd';
 import { useRouteMatch, useHistory } from "react-router-dom"
 import { getLivreById, updateLivre } from '../../services/livres.service';
+
 import Page403 from "../page403/page403"
-function DetailsLivre() {
+function DetailsLivre({ role }) {
     let { params } = useRouteMatch()
     let history = useHistory();
+
     const livre = getLivreById(params.livreId)
 
     const [title, setTitle] = useState(livre.title)
@@ -68,7 +70,7 @@ function DetailsLivre() {
                     onBack={() => history.goBack()}
                     title="Livre info"
                 />
-                <Button
+                {(role !== "Adherents" ? (<Button
                     onClick={() => showModal()}
                     type="primary"
                     style={{
@@ -77,8 +79,9 @@ function DetailsLivre() {
                     }}
                 >
                     Update Livre
-        </Button>
-
+                </Button>
+                ) : console.log())
+                }
                 <Modal
                     title="Update Livre"
                     visible={visible}
@@ -143,9 +146,12 @@ function DetailsLivre() {
                     <Descriptions.Item label="exemplaire" >{exemplaire}</Descriptions.Item>
                     <Descriptions.Item label="Auteur" >{auteur}</Descriptions.Item>
                     <Descriptions.Item label="edition" >{edition}</Descriptions.Item>
-                    <Descriptions.Item label="archive" span={1} >
-                        {archive}
-                    </Descriptions.Item>
+                    {(role !== "Adherents" ? (
+                        <Descriptions.Item label="archive" span={1} >
+                            {archive}
+                        </Descriptions.Item>
+                    ) : console.log())
+                    }
                     <Descriptions.Item label="libelle" >{libelle}</Descriptions.Item>
                 </Descriptions>
 

@@ -13,7 +13,7 @@ function BibliothecaireMiddleware({ component: Component, ...rest }) {
     const isBiblio = useBiblio();
     console.log('isBiblio: ', isBiblio);
     const isEtat = useEtat();
-    console.log("achref", isEtat);
+    console.log("isEtat", isEtat);
     return (
         <Route
             {...rest}

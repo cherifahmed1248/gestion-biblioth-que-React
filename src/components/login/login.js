@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import 'antd/dist/antd.css';
-import tof from "../img/ISAMM.png"
+import tof from "../img/ISAMMMax.png"
 
-import { Form, Input, Button, Card, Col, Row } from 'antd';
+import { message, Form, Input, Button, Card, Col, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { seConnecter } from "../../services/adherents.service"
 
@@ -18,6 +18,7 @@ function Login({ logintest }) {
         localStorage.setItem('user', test);
         console.log("localStorage.setItem('user', test): ", localStorage.getItem('user'));
 
+        console.log('test: ', test);
         return test
     }
 
@@ -25,16 +26,22 @@ function Login({ logintest }) {
     const onFinish = values => {
 
         log(values).then(function (value) {
-            console.log('value: ', value);
-            value === "false" ?
-                value = false :
-                value = true
-            if (value == true) {
-                console.log('value: ', value);
+
+            if (value === "false") {
+                value = false
+            }
+
+            if (value === false) {
+                message.error("wrong username or password. please try again")
+                history.push("/");
+
+            }
+            if (value !== "false" && value !== false) {
 
                 logintest();
                 history.push("/");
             }
+
         });
 
     };

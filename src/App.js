@@ -8,7 +8,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import { Button } from 'antd';
+import AdherentsRouter from './components/Adherents/adherentsRouter';
 import BibliothecaireRouter from './components/bibliothecaireRouter/bibliothecaireRouter';
 import AdhérentsMiddleware from './components/middleware/adhérentsMiddleware/adhérentsMiddleware';
 import BibliothecaireMiddleware from './components/middleware/bibliothecaireMiddleware/bibliothecaireMiddleware';
@@ -23,15 +23,14 @@ import Page403 from "../src/components/page403/page403"
 import { AuthContext } from "./components/useContext/auth/auth";
 import { BannedContext } from "./components/useContext/banned/banned";
 import { EtatContext } from "./components/useContext/etat/etat";
-
 import { BibloContext } from "./components/useContext/biblio/biblio";
 import { getAdherentById, getUser } from "./services/adherents.service"
 import State from './components/state/state';
-
+import Emprunt from "./components/Adherents/emprunt/emprunt"
 
 function App() {
   if (localStorage.getItem('user') === null) {
-    localStorage.setItem('user', "fasle");
+    localStorage.setItem('user', "false");
   }
   let authe
   localStorage.getItem('user') === "false" ?
@@ -93,6 +92,7 @@ function App() {
             <BibloContext.Provider value={biblo}>
 
               <Router>
+
                 <Switch>
                   <AuthenticationMiddleware
                     path='/login'
@@ -102,12 +102,20 @@ function App() {
                     path='/signup'
                     component={() => <Signup login={login} />}
                   />
+
                   <BibliothecaireMiddleware path="/bibliothecaire" component={() => <BibliothecaireRouter logout={logout} />} />
-                  <AdhérentsMiddleware path="/home" component={Home} />
+                  <AdhérentsMiddleware path="/Adherents" component={() => <AdherentsRouter logout={logout} />} />
+                  <AdhérentsMiddleware path="/home" component={() => <Home logout={logout} />} />
+
                   <Route exact path="/banni" component={() => <Banni logout={logout} />} />
                   <Route exact path="/state" component={() => <State logout={logout} />} />
                   <Route exact path="/">
                     <Redirect to={`/home`} />
+
+                  </Route>
+
+                  <Route exact path={`/listeLivre`}>
+                    <Emprunt />
                   </Route>
                   <Route path={`/404`}>
                     <Page404 />
@@ -119,6 +127,7 @@ function App() {
                     <Redirect to={`/404`} />
                   </Route>
                 </Switch>
+
               </Router>
             </BibloContext.Provider>
           </BannedContext.Provider>

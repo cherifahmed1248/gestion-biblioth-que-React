@@ -1,3 +1,5 @@
+import { CountLivresById } from './emprunt.service';
+
 var livres = [
     {
         id: 1,
@@ -7,16 +9,16 @@ var livres = [
         auteur: "Mathieu Nebra",
         edition: "2 EDITION",
         exemplaire: "133",
-        archive: "false"
+        archive: "true"
     },
     {
         id: 21,
         title: "Livre 21",
         libelle: "Vous rêvez d'apprendre à créer des sites web mais vous avez peur que ce soit compliqué car vous débutez ? Ce livre est fait pour vous ! Conçu pour les débutants, il vous permettra de découvrir HTML 5 et CSS 3, les dernières technologies en matière de création de sites web, de façon progressive et sans aucun prérequis, si ce n'est de savoir allumer son ordinateur !",
         prix: "18,99",
-        auteur: "Mathieu Nebra",
+        auteur: "Ahmed",
         edition: "2 EDITION",
-        exemplaire: "133",
+        exemplaire: "3",
         archive: "false"
     },
     {
@@ -69,6 +71,14 @@ export function getLivreById(id) {
     })) : L)
     return test
 }
+
+export const getLivreNonArchive = async searchValue => {
+    await delay(2000)
+
+    //console.log("Count=")
+    return (livres.filter(livre => livre.archive === "false" && (livre.exemplaire - CountLivresById(livre.id) > 0)))
+}
+
 export function addLivre(livre) {
 
 

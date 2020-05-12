@@ -1,5 +1,6 @@
 
 import React from "react";
+import AppLayout from "../appLayout/appLayout"
 
 
 import {
@@ -7,21 +8,25 @@ import {
     Link,
 
 } from "react-router-dom"
-function Home(props) {
+function Home({ logout }) {
     console.log("home");
 
     return (
-        <div>
-            <h1>Home Page </h1>
-            {localStorage.getItem('user')}    <br />
-            <Link to="/bibliothecaire/gestionLivre"  >
-                Gestion livre
+        <AppLayout logout={logout}>
+
+            <div>
+                <h1>Home Page </h1>
+                {localStorage.getItem('user')}    <br />
+                <Link to="/bibliothecaire/gestionLivre"  >
+                    Gestion livre
         </Link>
-            <br />
-            <Link to="/bibliothecaire/gestionadhérents"  >
-                gestionadhérents
+                <br />
+                <Link to="/bibliothecaire/gestionadhérents"  >
+                    gestionadhérents
         </Link>
-        </div >
+            </div >
+        </AppLayout >
+
     )
 }
 

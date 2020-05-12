@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import 'antd/dist/antd.css';
 import './Gestionadhérents.css';
 import { getAdhérents, bannir, ChangeEtatById as ChangeEtatByIdFromService, deleteAdhérents as deleteAdhérentsFromService } from '../../services/adherents.service';
-import { Modal, Table, Input, Switch, Button } from 'antd';
+import { Tag, Popconfirm, Modal, Table, Input, Switch, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import {
     Link
@@ -126,7 +126,6 @@ function Gestionadhérents() {
             ...getColumnSearchProps('username'),
             render: (text, row, index) => {
                 if (!modal) {
-                    console.log(adhérents)
                     return <a onClick={() => showModal(row)}>{row.username}</a>;
                 } else {
                     if (ligne.banni === "false") {
@@ -178,10 +177,22 @@ function Gestionadhérents() {
                 {
                     text: 'banni',
                     value: 'true',
+                },
+                {
+                    text: 'non banni',
+                    value: 'false',
                 }],
             onFilter: (value, record) => record.banni.indexOf(value) === 0,
             sorter: (a, b) => a.banni.length - b.banni.length,
             sortDirections: ['ascend', 'descend'],
+            render: Banni => (
+
+                <span>
+                    <Tag color={Banni === "true" ? '#87d068' : '#f50'} key={Banni}>
+                        {String(Banni)}
+                    </Tag>
+
+                </span>)
         },
         {
             title: 'Etat',
@@ -190,6 +201,10 @@ function Gestionadhérents() {
                 {
                     text: 'true',
                     value: 'true',
+                },
+                {
+                    text: 'false',
+                    value: 'false',
                 }],
             onFilter: (value, record) => record.etat.indexOf(value) === 0,
             sorter: (a, b) => a.etat.length - b.etat.length,
@@ -228,9 +243,14 @@ function Gestionadhérents() {
                             </Button>
                         </Link>
                         &nbsp;
-                        <Button key="submit" type="primary" onClick={() => deleteAdhérents(row.key)} danger>
+                        {/*                         <Button key="submit" type="primary" onClick={() => deleteAdhérents(row.key)} danger>
                             Delete
-                        </Button>
+                        </Button> */}
+                        <Popconfirm title="Sure to delete?" onConfirm={() => deleteAdhérents(row.key)}>
+                            <Button key="submit" type="primary" danger>
+                                Delete
+                            </Button>
+                        </Popconfirm>
                     </div >)
             },
         },

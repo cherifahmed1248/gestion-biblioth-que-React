@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { useHistory } from 'react-router-dom';
 
-import { Result, Button, Typography } from 'antd';
+import { Result, Button } from 'antd';
 function State({ logout }) {
     const history = useHistory();
 

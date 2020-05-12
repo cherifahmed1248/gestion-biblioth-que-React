@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import tof from "../img/ISAMM.png"
+import tof from "../img/ISAMMMax.png"
 import { addAdherent } from "../../services/adherents.service"
 
 import {
-    Form, Input, Button, Select,
+    Form, Input, Button,
     Card, Col, Row, Tooltip, DatePicker
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 function Signup({ login }) {
-    const { Option } = Select;
-    const [user, setUser] = useState(false)
     const history = useHistory();
 
     const add = async (values) => {
@@ -20,7 +18,12 @@ function Signup({ login }) {
         console.log("localStorage.getItem('user')=" + localStorage.getItem('user'));
 
     }
+    function datess(dates, dateStrings) {
+        console.log('From: ', dates);
+        console.log('From: ', dateStrings);
 
+        return dateStrings
+    }
     const onFinish = values => {
         console.log('values.getDate: ', values.date._i)
 
@@ -175,7 +178,7 @@ function Signup({ login }) {
                                 <Input />
                             </Form.Item>
                             <Form.Item name="date" label="Date de naissance" {...config}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY/MM/DD" onChange={datess} />
                             </Form.Item>
 
                             <Form.Item
