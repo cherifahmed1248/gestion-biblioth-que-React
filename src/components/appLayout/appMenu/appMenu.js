@@ -202,6 +202,7 @@ function AppMenu({ logout, children }) {
                 <Footer style={{ textAlign: 'center' }}>Biblo ©2020 Created by A & A </Footer>
             </Layout>
         </Layout >
+
     )
 }
 
