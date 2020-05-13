@@ -27,15 +27,12 @@ function Signup({ login }) {
     const onFinish = values => {
         console.log('values.getDate: ', values.date._i)
 
-
-
-
         add(values).then(function (value) {
             console.log('value: ', value);
             value === "false" ?
                 value = false :
                 value = true
-            if (value == true) {
+            if (value === true) {
                 console.log('value: ', value);
 
                 login();
@@ -50,7 +47,7 @@ function Signup({ login }) {
             {
                 type: 'object',
                 required: true,
-                message: 'Please select time!',
+                message: 'Veillez entrer une date!',
             },
         ],
     };
@@ -97,11 +94,11 @@ function Signup({ login }) {
                                 rules={[
                                     {
                                         type: 'email',
-                                        message: 'The input is not valid E-mail!',
+                                        message: 'E-mail non valide!',
                                     },
                                     {
                                         required: true,
-                                        message: 'Please input your E-mail!',
+                                        message: 'Veillez entrer votre E-mail!',
                                     },
                                 ]}
                             >
@@ -109,11 +106,11 @@ function Signup({ login }) {
                             </Form.Item>
                             <Form.Item
                                 name="password"
-                                label="Password"
+                                label="Mot de passe"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your password!',
+                                        message: 'Veillez entrer votre mot de passe!',
                                     },
                                 ]}
                                 hasFeedback
@@ -123,13 +120,13 @@ function Signup({ login }) {
 
                             <Form.Item
                                 name="confirm"
-                                label="Confirm Password"
+                                label="Confirmer Mot de passe"
                                 dependencies={['password']}
                                 hasFeedback
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please confirm your password!',
+                                        message: 'Veillez confirmer votre mot de passe!',
                                     },
                                     ({ getFieldValue }) => ({
                                         validator(rule, value) {
@@ -137,7 +134,7 @@ function Signup({ login }) {
                                                 return Promise.resolve();
                                             }
 
-                                            return Promise.reject('The two passwords that you entered do not match!');
+                                            return Promise.reject('Les 2 mots de passe que vous avez saisi ne sont pas identiques!');
                                         },
                                     }),
                                 ]}
@@ -148,8 +145,8 @@ function Signup({ login }) {
                                 name="username"
                                 label={
                                     <span>
-                                        Username&nbsp;
-                                        <Tooltip title="What do you want others to call you?">
+                                        Nom&nbsp;
+                                        <Tooltip title="Comment vous voulez être appelé?">
                                             <QuestionCircleOutlined />
                                         </Tooltip>
                                     </span>
@@ -157,7 +154,7 @@ function Signup({ login }) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your Username!',
+                                        message: 'Veillez entrer votre nom!',
                                         whitespace: true,
                                     },
                                 ]}
@@ -166,12 +163,12 @@ function Signup({ login }) {
                             </Form.Item>
                             <Form.Item
                                 name="address"
-                                label="address"
+                                label="Address"
                                 rules={[
 
                                     {
                                         required: true,
-                                        message: 'Please input your address!',
+                                        message: 'Veillez entrer votre address!',
                                     },
                                 ]}
                             >
@@ -183,11 +180,11 @@ function Signup({ login }) {
 
                             <Form.Item
                                 name="phone"
-                                label="Phone Number"
+                                label="Téléphone"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your phone number!',
+                                        message: 'Veillez entrer votre numéro!',
                                     },
                                 ]}
                             >
@@ -207,12 +204,12 @@ function Signup({ login }) {
                                 }}>
                                     Inscription
                                 </Button>
-                                or
+                                ou
                                 <Link to="/login" style={{
                                     marginLeft: "1%",
 
                                 }}>
-                                    Se connecter
+                                    Connexion
                                 </Link>
                             </Form.Item>
                         </Form>

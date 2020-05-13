@@ -10,8 +10,8 @@ function Page404() {
         <Result
             status="404"
             title="404"
-            subTitle="Sorry, the page you visited does not exist."
-            extra={<Button type="primary"><Link to="/">Back Home</Link></Button>}
+            subTitle="Désolé mais la page que vous êtes en train de chercher n'existe pas."
+            extra={<Button type="primary"><Link to="/">Accueil</Link></Button>}
         />
     )
 

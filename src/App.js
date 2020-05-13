@@ -90,9 +90,7 @@ function App() {
         <EtatContext.Provider value={etat}>
           <BannedContext.Provider value={banni}>
             <BibloContext.Provider value={biblo}>
-
               <Router>
-
                 <Switch>
                   <AuthenticationMiddleware
                     path='/login'
@@ -111,9 +109,7 @@ function App() {
                   <Route exact path="/state" component={() => <State logout={logout} />} />
                   <Route exact path="/">
                     <Redirect to={`/home`} />
-
                   </Route>
-
                   <Route exact path={`/listeLivre`}>
                     <Emprunt />
                   </Route>

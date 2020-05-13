@@ -26,10 +26,8 @@ function Profil() {
         console.log('values.getDate: ', values)
         update(values).then(function (value) {
             console.log('value: ', value);
-
-
             if (value !== false) {
-                message.success("Your settings have been updated!")
+                message.success("données modifiées avec succès!")
                 setAdherent(value)
             }
 
@@ -46,10 +44,10 @@ function Profil() {
         updatePass(val).then(function (value) {
             console.log('value: ', value);
             if (value !== false) {
-                message.success("Your password have been updated!")
+                message.success("Mot de passe modifier avec succès!")
             }
             if (value === false) {
-                message.error("wrong password. please try again")
+                message.error("Mot de passe incorrect ! Veillez réessayer ")
             }
         })
 
@@ -60,7 +58,7 @@ function Profil() {
             {
                 type: 'object',
                 required: true,
-                message: 'Please select time!',
+                message: 'Veillez choisir une date!',
             },
         ],
     };
@@ -76,7 +74,7 @@ function Profil() {
         <>
             {console.log('adherent: ', adherent)}
             <Collapse  >
-                <Panel header="Basic Settings" key="1">
+                <Panel header="Paramètres généraux" key="1">
                     <Form
                         name="register"
                         className="login-form"
@@ -84,19 +82,17 @@ function Profil() {
                         onFinish={onFinish}
 
                     >
-
-
                         <Form.Item
                             name="email"
                             label="E-mail"
                             rules={[
                                 {
                                     type: 'email',
-                                    message: 'The input is not valid E-mail!',
+                                    message: 'E-mail non valide !',
                                 },
                                 {
                                     required: true,
-                                    message: 'Please input your E-mail!',
+                                    message: 'Veillez entrer votre E-mail!',
                                 },
                             ]}
                         >
@@ -106,14 +102,14 @@ function Profil() {
                             name="username"
                             label={
                                 <span>
-                                    Username&nbsp;
+                                    Nom&nbsp;
 
                     </span>
                             }
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your Username!',
+                                    message: 'Veillez entrer votre nom!',
                                     whitespace: true,
                                 },
                             ]}
@@ -122,12 +118,12 @@ function Profil() {
                         </Form.Item>
                         <Form.Item
                             name="address"
-                            label="address"
+                            label="Address"
                             rules={[
 
                                 {
                                     required: true,
-                                    message: 'Please input your address!',
+                                    message: 'Veillez entrer votre address!',
                                 },
                             ]}
                         >
@@ -142,11 +138,11 @@ function Profil() {
 
                         <Form.Item
                             name="phone"
-                            label="Phone Number"
+                            label="Téléphone"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your phone number!',
+                                    message: 'Veillez entrer votre numéro!',
                                 },
                             ]}
                         >
@@ -164,14 +160,14 @@ function Profil() {
                                 marginRight: "2%",
 
                             }}>
-                                Update Information
+                                Modifier
                                 </Button>
 
                         </Form.Item>
                     </Form>
 
                 </Panel>
-                <Panel header="Security Settings" key="2">
+                <Panel header="Paramètre du sécurité" key="2">
                     <Form name="Password"
                         className="Password-form"
                         {...layout}
@@ -181,11 +177,11 @@ function Profil() {
                         <Form.Item
 
                             name="oldPassword"
-                            label="Current Password"
+                            label="Mot de passe actuel"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your Current password!',
+                                    message: 'Veillez entrer votre mot de passe actuel!',
                                 },
                             ]}
                             hasFeedback
@@ -195,11 +191,11 @@ function Profil() {
                         <Form.Item
 
                             name="password"
-                            label="New Password"
+                            label="Nouveau mot de passe"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your new password!',
+                                    message: 'Veillez entrer un mot de passe!',
                                 },
                             ]}
                             hasFeedback
@@ -208,13 +204,13 @@ function Profil() {
                         </Form.Item>
                         <Form.Item
                             name="confirm"
-                            label="Confirm Password"
+                            label="Confirmer mot de passe"
                             dependencies={['password']}
                             hasFeedback
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please confirm your password!',
+                                    message: 'Veillez confirmer le mot de passe!',
                                 },
                                 ({ getFieldValue }) => ({
                                     validator(rule, value) {
@@ -222,7 +218,7 @@ function Profil() {
                                             return Promise.resolve();
                                         }
 
-                                        return Promise.reject('The two passwords that you entered do not match!');
+                                        return Promise.reject('Les 2 mots de passes que vous avez entré ne sont pas identiques!');
                                     },
                                 }),
                             ]}
@@ -236,7 +232,7 @@ function Profil() {
                                 marginRight: "2%",
 
                             }}>
-                                Save Changes
+                                Enregistrer les modifications
                                 </Button>
 
                         </Form.Item>

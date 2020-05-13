@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import 'antd/dist/antd.css';
 import { Table, Button } from 'antd';
@@ -18,8 +18,6 @@ export default function HistorisqueEmprunt() {
     const [searchText, setSearchText] = useState("")
     const [searchedColumn, setSearchedColumn] = useState("")
     const searchInput = useRef(null)
-
-    let { path } = useRouteMatch()
     let history = useHistory();
 
 
@@ -29,9 +27,6 @@ export default function HistorisqueEmprunt() {
         return (result)
 
     }
-
-
-
     /*--------------------- search ----------------------*/
     const getColumnSearchProps = dataIndex => ({
 
@@ -40,7 +35,7 @@ export default function HistorisqueEmprunt() {
                 <Input
                     ref={searchInput}
 
-                    placeholder={`Search ${dataIndex}`}
+                    placeholder={`Rechercher ${dataIndex}`}
                     value={selectedKeys[0]}
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                     onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -52,12 +47,12 @@ export default function HistorisqueEmprunt() {
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined />}
                         size="small"
-                        style={{ width: 90 }}
+                        style={{ width: 100 }}
                     >
-                        Search
+                        Rechercher
             </Button>
                     <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-                        Reset
+                        Retourner
             </Button>
                 </Space>
             </div>
@@ -108,7 +103,7 @@ export default function HistorisqueEmprunt() {
             },
         },
         {
-            title: 'Title',
+            title: 'Titre',
             dataIndex: 'title',
             sorter: {
                 compare: (a, b) => a.title.toLowerCase() !== b.title.toLowerCase() ? a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1 : 0,
@@ -128,7 +123,7 @@ export default function HistorisqueEmprunt() {
             ...getColumnSearchProps('auteur'),
         },
         {
-            title: "date d'emprunt",
+            title: "Date d'emprunt",
             dataIndex: "dateEmprunt",
             sorter: {
                 compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
@@ -136,7 +131,7 @@ export default function HistorisqueEmprunt() {
             },
         },
         {
-            title: "date de retour",
+            title: "Date de retour",
             dataIndex: "dateRetour",
             sorter: {
                 compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
@@ -178,7 +173,7 @@ export default function HistorisqueEmprunt() {
             <PageHeader
                 className="site-page-header"
                 onBack={() => history.goBack()}
-                title="historique des livres Emprunt"
+                title="historique des livres empruntés"
             />
             <div>
                 <Table columns={columns} dataSource={livres} onChange={onChange}

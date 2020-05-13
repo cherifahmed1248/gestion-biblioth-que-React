@@ -32,12 +32,10 @@ function Login({ logintest }) {
             }
 
             if (value === false) {
-                message.error("wrong username or password. please try again")
+                message.error("nom ou mot de passe inccorect, veillez réessayer")
                 history.push("/");
-
             }
             if (value !== "false" && value !== false) {
-
                 logintest();
                 history.push("/");
             }
@@ -78,7 +76,7 @@ function Login({ logintest }) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your email!',
+                                        message: 'Veillez entrer votre email!',
                                     },
                                 ]}
                             >
@@ -89,14 +87,14 @@ function Login({ logintest }) {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your Password!',
+                                        message: 'Veillez entrer votre mot de passe!',
                                     },
                                 ]}
                             >
                                 <Input
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
-                                    placeholder="Password"
+                                    placeholder="Mot de passe"
                                 />
                             </Form.Item>
                             <Form.Item>
@@ -104,14 +102,14 @@ function Login({ logintest }) {
                                     marginRight: "2%",
 
                                 }}>
-                                    Log in
+                                    Connexion
                                 </Button>
-                                or
+                                ou
                                 <Link to="/signup" style={{
                                     marginLeft: "1%",
 
                                 }}>
-                                    register now!
+                                    Inscrivez-vous!
                                 </Link>
                             </Form.Item>
                         </Form>

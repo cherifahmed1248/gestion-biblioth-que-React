@@ -1,47 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import 'antd/dist/antd.css';
-import { Table, Button, message } from 'antd';
-import { getLivreNonArchive } from "../../../services/livres.service"
-import { empruntLivre } from "../../../services/emprunt.service"
-
+import { Table, Button } from 'antd';
+import { getHistoriqueDesEmprunts } from "../../../services/emprunt.service"
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Input, Space } from 'antd';
-import { NavLink, useRouteMatch, useHistory } from "react-router-dom"
+import { useRouteMatch, useHistory } from "react-router-dom"
 import { PageHeader } from 'antd';
 
-export default function Emprunt() {
-    function emprunt(id) {
-        var data = {
-            idUser: localStorage.getItem('user'),
-            idLivre: id,
-        }
-        var test = empruntLivre(data)
-        if (test === true) {
-            message.success("livre emprunté avec succèss")
-        } else {
-            message.error("vous avez déjà atteint le maximum d'emprunts")
-
-        }
-    }
-    useEffect(() => {
-
-        init().then(function (value) {
-            setLivres(value)
-        })
-    })
-    const init = async () => {
-        const result = await getLivreNonArchive()
-        return (result)
-    }
-    const [livres, setLivres] = useState([])
+export default function HistorisqueEmprunt() {
+    let { params } = useRouteMatch()
+    //const [livres, setLivres] = useState([])
     const [searchText, setSearchText] = useState("")
     const [searchedColumn, setSearchedColumn] = useState("")
     const searchInput = useRef(null)
-
-    let { path } = useRouteMatch()
     let history = useHistory();
+
+
+    const [livres, setLivres] = useState(init())
+    function init() {
+        const result = getHistoriqueDesEmprunts()
+        return (result)
+
+    }
 
 
 
@@ -53,7 +35,7 @@ export default function Emprunt() {
                 <Input
                     ref={searchInput}
 
-                    placeholder={`Rechercher ${dataIndex}`}
+                    placeholder={`Search ${dataIndex}`}
                     value={selectedKeys[0]}
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                     onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -65,12 +47,12 @@ export default function Emprunt() {
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined />}
                         size="small"
-                        style={{ width: 100 }}
+                        style={{ width: 90 }}
                     >
-                        Rechercher
+                        Search
             </Button>
                     <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-                        Retourner
+                        Reset
             </Button>
                 </Space>
             </div>
@@ -141,33 +123,38 @@ export default function Emprunt() {
             ...getColumnSearchProps('auteur'),
         },
         {
-            title: "Nombre d'exemplaire",
-            dataIndex: 'exemplaire',
+            title: "Date d'emprunt",
+            dataIndex: "dateEmprunt",
             sorter: {
-                compare: (a, b) => a.exemplaire - b.exemplaire,
-                multiple: 5,
+                compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
+                multiple: 6,
             },
         },
         {
-            title: 'Action',
-            key: 'action',
-            render: (text, record) => (
-                <span style={{ textAlign: "center" }}>
-                    <Button key="details" value="default" >
-                        <NavLink to={`${path}/${record.id}`} activeClassName="active">
-                            Details
-                    </NavLink>
-                    </Button>
-                    &nbsp;
-
-                    <Button key="submit" type="primary" onClick={() => emprunt(record.id)}>
-                        Emprunter
-                    </Button>
-
-                </span>
-
-            ),
+            title: "Date de retour",
+            dataIndex: "dateRetour",
+            sorter: {
+                compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
+                multiple: 7,
+            },
         },
+
+        {
+            title: "Etat",
+            dataIndex: "etat",
+            sorter: {
+                compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
+                multiple: 9,
+            },
+            render: Etat => (
+                (Number(Etat) > 15) ?
+                    <p>retard  {Etat - 15} jours </p>
+                    :
+                    <p>reste  {15 - Etat} jours</p>
+
+            )
+        },
+
     ];
 
 
@@ -178,7 +165,7 @@ export default function Emprunt() {
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     }
-
+    console.log(params);
     return (
 
 
@@ -186,7 +173,7 @@ export default function Emprunt() {
             <PageHeader
                 className="site-page-header"
                 onBack={() => history.goBack()}
-                title="Liste des livres disponibles"
+                title="historique des emprunts"
             />
             <div>
                 <Table columns={columns} dataSource={livres} onChange={onChange}

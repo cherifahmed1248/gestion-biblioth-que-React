@@ -10,8 +10,8 @@ function Page403() {
         <Result
             status="403"
             title="403"
-            subTitle="Sorry, you are not authorized to access this page."
-            extra={<Button type="primary"><Link to="/">Back Home</Link></Button>}
+            subTitle="Désolé mais vous n'êtes pas autorisés à accéder à cette page."
+            extra={<Button type="primary"><Link to="/">Accueil</Link></Button>}
         />
     )
 

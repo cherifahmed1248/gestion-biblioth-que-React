@@ -88,7 +88,6 @@ export function getLivresEmprunts() {
         }))
     console.log('test: ', test);
     return test
-    return Liste
 }
 export function getHistoriqueDesEmprunts() {
     const Liste = emprunts.filter((e) => (e.dateRetour !== ""));

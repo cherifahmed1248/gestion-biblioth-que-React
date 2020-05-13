@@ -68,7 +68,7 @@ function AppMenu({ logout, children }) {
                             <Link to="/home" style={{
                                 color: "rgba(255, 255, 255, 0.65)"
                             }} >
-                                home
+                                Accueil
 </Link>
                         </Menu.Item>
                         <Menu.Item key="/bibliothecaire/gestionLivre" icon={<ReadOutlined />}>
@@ -87,7 +87,7 @@ function AppMenu({ logout, children }) {
                             }}
                             >
 
-                                Gestion des Adhérents
+                                Gestion Adhérents
 
                     </Link>
                         </Menu.Item>
@@ -97,13 +97,13 @@ function AppMenu({ logout, children }) {
 
                                 <Link to="/bibliothecaire/gestionempruntsencours" style={{
                                     color: "rgba(255, 255, 255, 0.65)"
-                                }}>gestionempruntsencours </Link>
+                                }}>En cours </Link>
                             </Menu.Item>
                             <Menu.Item key="/bibliothecaire/historiqueEmprunts" icon={<ReadOutlined />}  >
 
                                 <Link to="/bibliothecaire/historiqueEmprunts" style={{
                                     color: "rgba(255, 255, 255, 0.65)"
-                                }}>historique Emprunts </Link>
+                                }}>Historique </Link>
                             </Menu.Item>
                         </SubMenu>
                     </Menu>
@@ -131,27 +131,27 @@ function AppMenu({ logout, children }) {
                             <Link to="/home" style={{
                                 color: "rgba(255, 255, 255, 0.65)"
                             }} >
-                                home
+                                Accueil
                         </Link>
                         </Menu.Item>
                         <Menu.Item key="/Adherents/listeLivre" icon={<ReadOutlined />}  >
 
                             <Link to="/Adherents/listeLivre" style={{
                                 color: "rgba(255, 255, 255, 0.65)"
-                            }}> List of books </Link>
+                            }}> Liste Livres </Link>
                         </Menu.Item>
                         <SubMenu key="Liste Emprunts" title="Liste Emprunts">
                             <Menu.Item key="/Adherents/listeLivreEmprunt" icon={<ReadOutlined />}  >
 
                                 <Link to="/Adherents/listeLivreEmprunt" style={{
                                     color: "rgba(255, 255, 255, 0.65)"
-                                }}>  encours </Link>
+                                }}>  En cours </Link>
                             </Menu.Item>
                             <Menu.Item key="/Adherents/historiqueEmprunt" icon={<ReadOutlined />}  >
 
                                 <Link to="/Adherents/historiqueEmprunt" style={{
                                     color: "rgba(255, 255, 255, 0.65)"
-                                }}> historique  </Link>
+                                }}> Historique  </Link>
                             </Menu.Item>
                         </SubMenu>
                     </Menu>
@@ -172,7 +172,7 @@ function AppMenu({ logout, children }) {
                             <Link to="/home" style={{
                                 color: "rgba(0, 0, 0, 0.65)"
                             }} >
-                                home
+                                Accueil
                         </Link>
                         </Menu.Item>
                         <SubMenu key="sub1" icon={<UserOutlined />} title={getAdherentById(localStorage.getItem('user')).username}>
@@ -183,7 +183,7 @@ function AppMenu({ logout, children }) {
 
                             </Menu.Item>
 
-                            <Menu.Item key="3" onClick={() => (logout(), history.push("/login"))}>Logout</Menu.Item>
+                            <Menu.Item key="3" onClick={() => (logout(), history.push("/login"))}>Se déconnecter</Menu.Item>
 
                         </SubMenu>
 
@@ -199,7 +199,7 @@ function AppMenu({ logout, children }) {
                         </div>
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center' }}>Biblo ©2020 Created by A & A </Footer>
             </Layout>
         </Layout >
     )

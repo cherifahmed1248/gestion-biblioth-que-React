@@ -10,12 +10,12 @@ function Banni({ logout }) {
     return (
         <Result
             status="error"
-            title="your account has been banned"
-            subTitle="please contact our librarian for more details"
+            title="Votre compte a été banni"
+            subTitle="Veillez contacter le bibliothécaire pour plus de détails"
             extra={[
 
                 <Button type="primary" key="console" onClick={() => (logout(), history.push("/login"))}>
-                    Logout
+                    Se déconnecter
                         </Button>
             ]}
         >
@@ -24,7 +24,7 @@ function Banni({ logout }) {
 
                 </Paragraph>
                 <Paragraph>
-                    <CloseCircleOutlined className="site-result-demo-error-icon" /> Your account has been frozen
+                    <CloseCircleOutlined className="site-result-demo-error-icon" /> Votre compte n'est pas disponible pour le moment
       </Paragraph>
 
             </div>

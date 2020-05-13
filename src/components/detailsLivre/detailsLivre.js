@@ -68,7 +68,7 @@ function DetailsLivre({ role }) {
                 <PageHeader
                     className="site-page-header"
                     onBack={() => history.goBack()}
-                    title="Livre info"
+                    title="Détails du livre"
                 />
                 {(role !== "Adherents" ? (<Button
                     onClick={() => showModal()}
@@ -78,12 +78,12 @@ function DetailsLivre({ role }) {
                         float: "right"
                     }}
                 >
-                    Update Livre
+                    Modifier Livre
                 </Button>
                 ) : console.log())
                 }
                 <Modal
-                    title="Update Livre"
+                    title="Modifier le livre"
                     visible={visible}
                     onOk={handleOk}
                     confirmLoading={confirmLoading}
@@ -91,8 +91,8 @@ function DetailsLivre({ role }) {
                     headStyle={{ color: "blue" }}
 
                 >
-                    <h4>title:</h4>
-                    <Input type="text" name='title' placeholder='title'
+                    <h4>titre:</h4>
+                    <Input type="text" name='title' placeholder='titre'
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     ></Input><br />
@@ -116,7 +116,7 @@ function DetailsLivre({ role }) {
                         value={prix}
                         onChange={handlePrix}
                     ></InputNumber>
-                    <h4>archive:</h4>
+                    <h4>archiver:</h4>
                     <Select
                         showSearch
                         style={{ width: "100%" }}
@@ -129,11 +129,11 @@ function DetailsLivre({ role }) {
 
                         onChange={handleArchive}
                     >
-                        <Option value="true">true</Option>
-                        <Option value="false">false</Option>
+                        <Option value="true">vrai</Option>
+                        <Option value="false">faux</Option>
                     </Select>
-                    <h4>libelle</h4>
-                    <Input.TextArea name='libelle' placeholder='Libelle'
+                    <h4>libellé</h4>
+                    <Input.TextArea name='libelle' placeholder='Libellé'
                         value={libelle}
                         onChange={e => setLibelle(e.target.value)}
                     ></Input.TextArea>
@@ -141,18 +141,18 @@ function DetailsLivre({ role }) {
 
                 <Descriptions size="default" bordered>
                     <Descriptions.Item label="Id" >{livre.id}</Descriptions.Item>
-                    <Descriptions.Item label="Title" >{title}</Descriptions.Item>
+                    <Descriptions.Item label="Titre" >{title}</Descriptions.Item>
                     <Descriptions.Item label="Prix"  >{prix}</Descriptions.Item>
-                    <Descriptions.Item label="exemplaire" >{exemplaire}</Descriptions.Item>
+                    <Descriptions.Item label="Exemplaire" >{exemplaire}</Descriptions.Item>
                     <Descriptions.Item label="Auteur" >{auteur}</Descriptions.Item>
-                    <Descriptions.Item label="edition" >{edition}</Descriptions.Item>
+                    <Descriptions.Item label="Edition" >{edition}</Descriptions.Item>
                     {(role !== "Adherents" ? (
-                        <Descriptions.Item label="archive" span={1} >
+                        <Descriptions.Item label="Archiver" span={1} >
                             {archive}
                         </Descriptions.Item>
                     ) : console.log())
                     }
-                    <Descriptions.Item label="libelle" >{libelle}</Descriptions.Item>
+                    <Descriptions.Item label="Libellé" >{libelle}</Descriptions.Item>
                 </Descriptions>
 
             </>

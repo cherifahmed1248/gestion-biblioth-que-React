@@ -1,29 +1,15 @@
-
 import React from "react";
 import AppLayout from "../appLayout/appLayout"
+import { getAdherentById } from "../../services/adherents.service"
 
-
-import {
-
-    Link,
-
-} from "react-router-dom"
 function Home({ logout }) {
     console.log("home");
 
     return (
         <AppLayout logout={logout}>
-
             <div>
-                <h1>Home Page </h1>
-                {localStorage.getItem('user')}    <br />
-                <Link to="/bibliothecaire/gestionLivre"  >
-                    Gestion livre
-        </Link>
-                <br />
-                <Link to="/bibliothecaire/gestionadhérents"  >
-                    gestionadhérents
-        </Link>
+                <h1>Page d'Accueil </h1>
+                <h3> Bienvenue {getAdherentById(localStorage.getItem('user')).username} à la bibliothèque</h3>    <br />
             </div >
         </AppLayout >
 

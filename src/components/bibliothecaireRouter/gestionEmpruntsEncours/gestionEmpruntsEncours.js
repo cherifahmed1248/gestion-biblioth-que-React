@@ -1,47 +1,38 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import 'antd/dist/antd.css';
-import { Table, Button, message } from 'antd';
-import { getLivreNonArchive } from "../../../services/livres.service"
-import { empruntLivre } from "../../../services/emprunt.service"
-
+import { Table, Button } from 'antd';
+import { getLivresEmprunts } from "../../../services/emprunt.service"
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Input, Space } from 'antd';
-import { NavLink, useRouteMatch, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { PageHeader } from 'antd';
+import { bannir, getAdherentById } from '../../../services/adherents.service';
 
-export default function Emprunt() {
-    function emprunt(id) {
-        var data = {
-            idUser: localStorage.getItem('user'),
-            idLivre: id,
-        }
-        var test = empruntLivre(data)
-        if (test === true) {
-            message.success("livre emprunté avec succèss")
-        } else {
-            message.error("vous avez déjà atteint le maximum d'emprunts")
-
-        }
-    }
-    useEffect(() => {
-
-        init().then(function (value) {
-            setLivres(value)
-        })
-    })
-    const init = async () => {
-        const result = await getLivreNonArchive()
-        return (result)
-    }
-    const [livres, setLivres] = useState([])
+export default function GestionEmpruntsEncours() {
+    //const [livres, setLivres] = useState([])
     const [searchText, setSearchText] = useState("")
     const [searchedColumn, setSearchedColumn] = useState("")
     const searchInput = useRef(null)
-
-    let { path } = useRouteMatch()
+    const [etat, setEtat] = useState(false)
     let history = useHistory();
+
+
+    const [livres, setLivres] = useState(init())
+    function init() {
+        const result = getLivresEmprunts(localStorage.getItem('user'))
+        return (result)
+
+    }
+    const handleBannir = (id) => {
+        console.log('id: ', id);
+        console.log('getAdherentById(record.idUser).banni: ', getAdherentById(id).banni);
+        bannir(id);
+        console.log('getAdherentById(record.idUser).banni: ', getAdherentById(id).banni);
+        setEtat(!etat)
+    }
+
 
 
 
@@ -53,7 +44,7 @@ export default function Emprunt() {
                 <Input
                     ref={searchInput}
 
-                    placeholder={`Rechercher ${dataIndex}`}
+                    placeholder={`Search ${dataIndex}`}
                     value={selectedKeys[0]}
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                     onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -65,12 +56,12 @@ export default function Emprunt() {
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined />}
                         size="small"
-                        style={{ width: 100 }}
+                        style={{ width: 90 }}
                     >
-                        Rechercher
+                        Search
             </Button>
                     <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-                        Retourner
+                        Reset
             </Button>
                 </Space>
             </div>
@@ -121,7 +112,17 @@ export default function Emprunt() {
             },
         },
         {
-            title: 'Titre',
+            title: 'Nom',
+            dataIndex: 'userName',
+            sorter: {
+                compare: (a, b) => a.userName.toLowerCase() !== b.userName.toLowerCase() ? a.userName.toLowerCase() < b.userName.toLowerCase() ? -1 : 1 : 0,
+                multiple: 41,
+            },
+            sortDirections: ['descend', 'ascend'],
+            ...getColumnSearchProps('userName'),
+        },
+        {
+            title: 'Titre du livre',
             dataIndex: 'title',
             sorter: {
                 compare: (a, b) => a.title.toLowerCase() !== b.title.toLowerCase() ? a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1 : 0,
@@ -141,33 +142,52 @@ export default function Emprunt() {
             ...getColumnSearchProps('auteur'),
         },
         {
-            title: "Nombre d'exemplaire",
-            dataIndex: 'exemplaire',
+            title: "Date d'emprunt",
+            dataIndex: "dateEmprunt",
             sorter: {
-                compare: (a, b) => a.exemplaire - b.exemplaire,
-                multiple: 5,
+                compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
+                multiple: 6,
             },
+        },
+        {
+            title: "Etat",
+            dataIndex: 'etat',
+            sorter: {
+                compare: (a, b) => a.etat !== b.etat ? a.etat < b.etat ? -1 : 1 : 0,
+                multiple: 91,
+            },
+
+            render: Etat => (
+                (Number(Etat) > 15) ?
+                    <p>retard  {Etat - 15} jours </p>
+                    :
+                    <p>reste  {15 - Etat} jours</p>
+
+            )
         },
         {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
                 <span style={{ textAlign: "center" }}>
-                    <Button key="details" value="default" >
-                        <NavLink to={`${path}/${record.id}`} activeClassName="active">
-                            Details
-                    </NavLink>
-                    </Button>
-                    &nbsp;
+                    {(getAdherentById(record.idUser).banni === "false") ?
 
-                    <Button key="submit" type="primary" onClick={() => emprunt(record.id)}>
-                        Emprunter
-                    </Button>
+                        (<Button key="submit" type="primary" onClick={() => handleBannir(record.idUser)} danger>
+                            Bannir
+                        </Button>)
+                        :
+                        (<Button key="submit" type="primary" onClick={() => handleBannir(record.idUser)}>
+                            Pardonner
+                        </Button>)
+                    }
 
                 </span>
 
             ),
+
         },
+
+
     ];
 
 
@@ -178,7 +198,6 @@ export default function Emprunt() {
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     }
-
     return (
 
 
@@ -186,7 +205,7 @@ export default function Emprunt() {
             <PageHeader
                 className="site-page-header"
                 onBack={() => history.goBack()}
-                title="Liste des livres disponibles"
+                title="liste des emprunts en cours"
             />
             <div>
                 <Table columns={columns} dataSource={livres} onChange={onChange}

@@ -1,24 +1,18 @@
 import React from "react"
-
 import 'antd/dist/antd.css';
 import './bibliothecaireRouter.css';
-
-
 import {
     Switch,
     Route,
     Redirect,
     useRouteMatch,
 } from "react-router-dom"
-
-import GestionLivre from "../gestionLivre/gestionLivre"
+import GestionLivre from "./gestionLivre/gestionLivre"
 import DetailsLivre from "../detailsLivre/detailsLivre"
-import GestionEmpruntsEncours from "../gestionEmpruntsEncours/gestionEmpruntsEncours"
-import HistorisqueEmprunt from "../historiqueEmprunt/historiqueEmprunt"
-
-
-import Gestionadhérents from "../Gestionadhérents/Gestionadhérents"
-import AdhérentLivres from "../Gestionadhérents/AdhérentLivres/AdhérentLivres"
+import GestionEmpruntsEncours from "./gestionEmpruntsEncours/gestionEmpruntsEncours"
+import HistorisqueEmprunt from "./historiqueEmprunt/historiqueEmprunt"
+import Gestionadhérents from "./Gestionadhérents/Gestionadhérents"
+import AdhérentLivres from "./Gestionadhérents/AdhérentLivres/AdhérentLivres"
 import Page404 from "../page404/page404"
 import AppLayout from "../appLayout/appLayout"
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import 'antd/dist/antd.css';
 import { Table, Button } from 'antd';
@@ -6,20 +6,14 @@ import { retournerLivreByIdEmprunt, getLivresEncoursByAdhérentId } from "../../
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { Input, Space } from 'antd';
-import { NavLink, useRouteMatch, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { PageHeader } from 'antd';
 
 export default function ListDesEmprunt({ titre }) {
-    let { params } = useRouteMatch()
-
-
-
     //const [livres, setLivres] = useState([])
     const [searchText, setSearchText] = useState("")
     const [searchedColumn, setSearchedColumn] = useState("")
     const searchInput = useRef(null)
-
-    let { path } = useRouteMatch()
     let history = useHistory();
 
 
@@ -44,7 +38,7 @@ export default function ListDesEmprunt({ titre }) {
                 <Input
                     ref={searchInput}
 
-                    placeholder={`Search ${dataIndex}`}
+                    placeholder={`Rechercher ${dataIndex}`}
                     value={selectedKeys[0]}
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                     onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -56,12 +50,12 @@ export default function ListDesEmprunt({ titre }) {
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined />}
                         size="small"
-                        style={{ width: 90 }}
+                        style={{ width: 100 }}
                     >
-                        Search
+                        Rechercher
             </Button>
                     <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-                        Reset
+                        Retourner
             </Button>
                 </Space>
             </div>
@@ -112,7 +106,7 @@ export default function ListDesEmprunt({ titre }) {
             },
         },
         {
-            title: 'Title',
+            title: 'Titre',
             dataIndex: 'title',
             sorter: {
                 compare: (a, b) => a.title.toLowerCase() !== b.title.toLowerCase() ? a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1 : 0,
@@ -132,7 +126,7 @@ export default function ListDesEmprunt({ titre }) {
             ...getColumnSearchProps('auteur'),
         },
         {
-            title: "date d'emprunt",
+            title: "Date d'emprunt",
             dataIndex: "dateEmprunt",
             sorter: {
                 compare: (a, b) => a.auteur.toLowerCase() !== b.auteur.toLowerCase() ? a.auteur.toLowerCase() < b.auteur.toLowerCase() ? -1 : 1 : 0,
@@ -162,7 +156,7 @@ export default function ListDesEmprunt({ titre }) {
             render: (text, record) => (
                 <span style={{ textAlign: "center" }}>
                     <Button key="submit" type="primary" onClick={() => retourner(record.id)}>
-                        Return
+                        Rendre
                     </Button>
 
                 </span>
@@ -189,7 +183,7 @@ export default function ListDesEmprunt({ titre }) {
             <PageHeader
                 className="site-page-header"
                 onBack={() => history.goBack()}
-                title="liste des livre emprunté"
+                title="liste des livres empruntés"
             />
             <div>
                 <Table columns={columns} dataSource={livres} onChange={onChange}

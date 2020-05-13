@@ -9,13 +9,13 @@ function State({ logout }) {
     return (
         <Result
             status="error"
-            title="Ta demande d'inscription non pas encore traitée"
+            title="Votre demande d'inscription n'est pas encore traitée"
             subTitle="veillez patienter jusqu'à ce que vous serez accepté par l'administrateur"
             extra={[
 
 
                 <Button type="primary" key="console" onClick={() => (logout(), history.push("/login"))}>
-                    Logout
+                    Se déconnecter
                         </Button>
             ]}
         >
