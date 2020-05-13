@@ -110,6 +110,7 @@ function AppMenu({ logout, children }) {
 
                     :
 
+
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} >
 
                         <Menu.Item classname="logo" style={{
