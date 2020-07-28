@@ -49,7 +49,7 @@ function AppMenu({ logout, children }) {
 
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} >
 
-                        <Menu.Item classname="logo" style={{
+                        <Menu.Item className="logo" style={{
                             marginTop: "15px"
                         }}>
                             <Link to="/home" style={{
@@ -112,7 +112,7 @@ function AppMenu({ logout, children }) {
 
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} >
 
-                        <Menu.Item classname="logo" style={{
+                        <Menu.Item className="logo" style={{
                             marginTop: "15px"
                         }}>
                             <Link to="/home" style={{

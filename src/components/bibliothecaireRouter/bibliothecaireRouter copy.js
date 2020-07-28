@@ -60,7 +60,7 @@ function BibliothecaireRouter({ logout }) {
 
 
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} >
-                    <Menu.Item classname="logo" style={{
+                    <Menu.Item className="logo" style={{
                         marginTop: "15px"
                     }}>
                         <Link to="/home" style={{
@@ -139,8 +139,8 @@ function BibliothecaireRouter({ logout }) {
 
                 </Header>
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial', minHeight: 650 }}>
-                    <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-                        <div className="bibliothecaire-routes">
+                    <div classname="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
+                        <div classname="bibliothecaire-routes">
 
                             <Switch>
                                 <Route exact path={`${path}/`}>

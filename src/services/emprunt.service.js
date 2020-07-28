@@ -86,7 +86,7 @@ export function getLivresEmprunts() {
             etat: testRetard(today, L.dateEmprunt)
 
         }))
-    console.log('test: ', test);
+    //console.log('test: ', test);
     return test
 }
 export function getHistoriqueDesEmprunts() {
@@ -102,7 +102,7 @@ export function getHistoriqueDesEmprunts() {
             etat: testRetard(L.dateRetour, L.dateEmprunt)
 
         }))
-    console.log('test: ', test);
+    //console.log('test: ', test);
     return test
 }
 export function getLivresByAdhérentId(id) {
@@ -110,7 +110,7 @@ export function getLivresByAdhérentId(id) {
     return Liste
 }
 export function getLivresEncoursByAdhérentId(Id) {
-    console.log('Id: ', Id);
+    //console.log('Id: ', Id);
 
     var Liste = emprunts.filter((e) => (Number(e.idUser) === Number(Id) && e.dateRetour === ""));
     var test = false
@@ -124,7 +124,7 @@ export function getLivresEncoursByAdhérentId(Id) {
             etat: testRetard(today, L.dateEmprunt)
 
         }))
-    console.log('test: ', test);
+    //console.log('test: ', test);
     return test
 }
 export function getHistorieByAdhérentId(id) {
@@ -140,7 +140,7 @@ export function getHistorieByAdhérentId(id) {
             etat: testRetard(L.dateRetour, L.dateEmprunt)
 
         }))
-    console.log('test: ', test);
+    // console.log('test: ', test);
     return test
 }
 export function CountLivresById(id) {
@@ -150,9 +150,9 @@ export function CountLivresById(id) {
 }
 export function testRetard(dr, de) {
     var date1 = new Date(de);
-    console.log('date1: ', date1);
+    // console.log('date1: ', date1);
     var date2 = new Date(dr);
-    console.log('date2: ', date2);
+    //  console.log('date2: ', date2);
     // différence des seconde
     var time_diff = date2.getTime() - date1.getTime();
     // différence de jours
@@ -161,7 +161,7 @@ export function testRetard(dr, de) {
     return Math.floor(days_Diff);
 }
 export function retournerLivreByIdEmprunt(Id) {
-    console.log('Id: ', Id);
+    // console.log('Id: ', Id);
     emprunts = emprunts.map(L => L.key === Number(Id) ? (
         {
             key: L.key, idUser: L.idUser,
@@ -169,7 +169,7 @@ export function retournerLivreByIdEmprunt(Id) {
             dateRetour: today
         }) : L)
 
-    console.log('emprunts: ', emprunts);
+    // console.log('emprunts: ', emprunts);
     return emprunts
 }
 export function empruntLivre(data) {
@@ -183,7 +183,7 @@ export function empruntLivre(data) {
                 dateRetour: ""
             }
         ]
-        console.log(emprunts)
+        // console.log(emprunts)
         resultat = true
     }
 

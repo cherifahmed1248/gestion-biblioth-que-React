@@ -169,25 +169,25 @@ export async function addAdherent(Adherent) {
     return adhérents[adhérents.length - 1]
 }
 export async function updateAdherent(data) {
-    console.log('data: ', data);
+    //console.log('data: ', data);
     var test = false
     adhérents = adhérents.map(a => a.key === Number(data.key) ? (test = {
         key: a.key, username: data.username, email: data.email, password: a.password, date: data.date._i, adresse: data.address, tel: data.phone, etat: a.etat,
         banni: a.banni, biblo: a.biblo
     }) : a);
 
-    console.log('test: ', test);
+    //console.log('test: ', test);
     return test
 }
 export async function updatePassword(data) {
-    console.log('data: ', data);
     var test = false
+
     adhérents = adhérents.map(a => (a.key === Number(data.key) && a.password === data.oldPassword) ? (test = {
-        key: a.key, username: a.username, email: a.email, password: data.password, date: a.date, adresse: a.addresse, tel: a.tel, etat: a.etat,
+        key: a.key, username: a.username, email: a.email, password: data.password, date: a.date, adresse: a.adresse, tel: a.tel, etat: a.etat,
         banni: a.banni, biblo: a.biblo
     }) : a);
 
-    console.log('test: ', test);
+    //console.log('test: ', test);
     return test
 }
 

@@ -51,7 +51,16 @@ var livres = [
         exemplaire: "133",
         archive: "false"
     },
-
+    {
+        id: 6,
+        title: "livre test",
+        libelle: "livre pour le test",
+        prix: "100,50",
+        auteur: "Cherif Ahmed",
+        edition: "5 EDITION",
+        exemplaire: "1",
+        archive: "true"
+    },
 ]
 
 function delay(ms) {
@@ -89,7 +98,7 @@ export function addLivre(livre) {
             libelle: livre.libelle, prix: Number(livre.prix), auteur: livre.auteur, edition: livre.edition, exemplaire: livre.exemplaire, archive: livre.archive
         }
     ]
-    console.log(livres)
+    //console.log(livres)
     return livres
 
 
@@ -105,7 +114,7 @@ export function updateLivre(livre) {
             auteur: livre.auteur, edition: livre.edition,
             exemplaire: livre.exemplaire, archive: livre.archive
         }) : L)
-    console.log('livres: ', livres);
+    //console.log('livres: ', livres);
     return livres
 }
 export function archiveLivre(id) {
@@ -115,10 +124,12 @@ export function archiveLivre(id) {
         libelle: L.libelle, prix: L.prix, auteur: L.auteur, edition: L.edition, exemplaire: L.exemplaire,
         archive: String(!(JSON.parse(L.archive)))
     }) : L)
-    console.log(livres);
+    //console.log(livres);
+    return livres;
 }
 export function deleteLivre(id) {
-    console.log(id)
+    //console.log(id)
     livres = livres.filter(task => task.id !== id)
-    console.log(livres)
+    //console.log(livres)
+    return livres;
 }

@@ -19,7 +19,7 @@ function Banni({ logout }) {
                         </Button>
             ]}
         >
-            <div className="desc">
+            <div classname="desc">
                 <Paragraph>
 
                 </Paragraph>
