@@ -13,6 +13,7 @@ describe("test routes adherentsRrouter", () => {
         const { debug } = render(
             <Router history={history}>
                 <AdherentsRouter logout={mockLogout} />
+
             </Router>)
 
     })
