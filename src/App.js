@@ -70,22 +70,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* 
-      <h1> auth={String(auth)}</h1>
-      <h1>etat={String(etat)}</h1>
-      <h1>banni={String(banni)}</h1>
-      <h1>biblo={String(biblo)}</h1>
 
-      <Button
-        onClick={() => logout()}
-        type="primary"
-        style={{
-          margin: 16,
-          float: "right"
-        }}
-      >
-        Logout
-            </Button> */}
       <AuthContext.Provider value={auth}>
         <EtatContext.Provider value={etat}>
           <BannedContext.Provider value={banni}>

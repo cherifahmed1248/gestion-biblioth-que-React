@@ -79,7 +79,7 @@ describe("test of emprunt service", () => {
                 auteur: 'Mathieu Nebra',
                 dateEmprunt: '04/29/2020',
                 dateRetour: '',
-                etat: 90
+                etat: 91
             },
             {
                 id: 6,
@@ -90,7 +90,7 @@ describe("test of emprunt service", () => {
                 auteur: 'Mathieu Nebra',
                 dateEmprunt: '02/20/2020',
                 dateRetour: '',
-                etat: 158
+                etat: 159
             },
             {
                 id: 7,
@@ -101,7 +101,7 @@ describe("test of emprunt service", () => {
                 auteur: 'Mathieu Nebra',
                 dateEmprunt: '04/30/2020',
                 dateRetour: '',
-                etat: 89
+                etat: 90
             }]
 
         expect(await getLivresEmprunts()).toStrictEqual(expected)
@@ -182,7 +182,7 @@ describe("test of emprunt service", () => {
     test(" getLivresEncoursByAdhérentId ", async () => {
         const expected =
             [{
-                "auteur": "Mathieu Nebra", "dateEmprunt": "04/29/2020", "dateRetour": "", "etat": 90, "id": 1, "idLivre": 22, "idUser": 2, "title": "Livre 22"
+                "auteur": "Mathieu Nebra", "dateEmprunt": "04/29/2020", "dateRetour": "", "etat": 91, "id": 1, "idLivre": 22, "idUser": 2, "title": "Livre 22"
             }]
 
         expect(await getLivresEncoursByAdhérentId(2)).toStrictEqual(expected)
@@ -207,10 +207,52 @@ describe("test of emprunt service", () => {
     })
     test(" retournerLivreByIdEmprunt ", async () => {
         const expected =
-            [
-                { "dateEmprunt": "02/20/2020", "dateRetour": "04/20/2021", "idLivre": 21, "idUser": 2, "key": 0 }
-            ]
+            [{ "dateEmprunt": "02/20/2020", "dateRetour": "07/29/2020", "idLivre": 21, "idUser": 2, "key": 0 },
+            { "dateEmprunt": "04/29/2020", "dateRetour": "", "idLivre": 22, "idUser": 2, "key": 1 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "04/23/2020", "idLivre": 31, "idUser": 3, "key": 2 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 3, "key": 3 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "03/29/2020", "idLivre": 31, "idUser": 1, "key": 4 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 1, "key": 5 },
+            { "dateEmprunt": "02/20/2020", "dateRetour": "", "idLivre": 32, "idUser": 41, "key": 6 },
+            { "dateEmprunt": "04/30/2020", "dateRetour": "", "idLivre": 1, "idUser": 41, "key": 7 },
+            { "dateEmprunt": "04/30/2019", "dateRetour": "06/01/2019", "idLivre": 22, "idUser": 41, "key": 8 }]
 
         expect(await retournerLivreByIdEmprunt(0)).toStrictEqual(expected)
+    })
+    test(" empruntLivre <2 ", async () => {
+        const queue = {
+            "idUser": 2,
+            "idLivre": 31
+        }
+        const expected =
+            [{ "dateEmprunt": "02/20/2020", "dateRetour": new Date(), "idLivre": 21, "idUser": 2, "key": 0 },
+            { "dateEmprunt": "04/29/2020", "dateRetour": "", "idLivre": 22, "idUser": 2, "key": 1 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "04/23/2020", "idLivre": 31, "idUser": 3, "key": 2 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 3, "key": 3 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "03/29/2020", "idLivre": 31, "idUser": 1, "key": 4 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 1, "key": 5 },
+            { "dateEmprunt": "02/20/2020", "dateRetour": "", "idLivre": 32, "idUser": 41, "key": 6 },
+            { "dateEmprunt": "04/30/2020", "dateRetour": "", "idLivre": 1, "idUser": 41, "key": 7 },
+            { "dateEmprunt": "04/30/2019", "dateRetour": "06/01/2019", "idLivre": 22, "idUser": 41, "key": 8 }]
+
+        expect(await empruntLivre(queue)).toStrictEqual(true)
+    })
+    test(" empruntLivre >= 2 ", async () => {
+        const queue = {
+            "idUser": 2,
+            "idLivre": 31
+        }
+        const expected =
+            [{ "dateEmprunt": "02/20/2020", "dateRetour": new Date(), "idLivre": 21, "idUser": 2, "key": 0 },
+            { "dateEmprunt": "04/29/2020", "dateRetour": "", "idLivre": 22, "idUser": 2, "key": 1 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "04/23/2020", "idLivre": 31, "idUser": 3, "key": 2 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 3, "key": 3 },
+            { "dateEmprunt": "03/25/2020", "dateRetour": "03/29/2020", "idLivre": 31, "idUser": 1, "key": 4 },
+            { "dateEmprunt": "04/25/2020", "dateRetour": "05/03/2020", "idLivre": 32, "idUser": 1, "key": 5 },
+            { "dateEmprunt": "02/20/2020", "dateRetour": "", "idLivre": 32, "idUser": 41, "key": 6 },
+            { "dateEmprunt": "04/30/2020", "dateRetour": "", "idLivre": 1, "idUser": 41, "key": 7 },
+            { "dateEmprunt": "04/30/2019", "dateRetour": "06/01/2019", "idLivre": 22, "idUser": 41, "key": 8 }]
+
+        expect(await empruntLivre(queue)).toStrictEqual(false)
     })
 })

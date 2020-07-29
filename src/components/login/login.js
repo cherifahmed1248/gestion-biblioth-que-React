@@ -24,9 +24,9 @@ function Login({ logintest }) {
 
 
     const onFinish = values => {
-
+        // console.log(values)
         log(values).then(function (value) {
-
+            console.log(value)
             if (value === "false") {
                 value = false
             }
@@ -72,6 +72,7 @@ function Login({ logintest }) {
                             onFinish={onFinish}
                         >
                             <Form.Item
+
                                 name="email"
                                 rules={[
                                     {
@@ -80,9 +81,10 @@ function Login({ logintest }) {
                                     },
                                 ]}
                             >
-                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+                                <Input aria-label="Email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
                             </Form.Item>
                             <Form.Item
+
                                 name="password"
                                 rules={[
                                     {
@@ -92,25 +94,26 @@ function Login({ logintest }) {
                                 ]}
                             >
                                 <Input
+                                    aria-label="Password"
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                     type="password"
                                     placeholder="Mot de passe"
                                 />
                             </Form.Item>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" className="login-form-button" style={{
+                                <Button data-testid="submit" type="primary" htmlType="submit" onClick={logintest()} className="login-form-button" style={{
                                     marginRight: "2%",
 
-                                }}>
+                                }} >
                                     Connexion
                                 </Button>
                                 ou
-                                <Link to="/signup" style={{
-                                    marginLeft: "1%",
+                                <Button type="primary" htmlType="submit" onClick={() => history.push("/signup")} className="login-form-button" style={{
+                                    marginRight: "2%",
 
-                                }}>
+                                }} >
                                     Inscrivez-vous!
-                                </Link>
+                                </Button>
                             </Form.Item>
                         </Form>
 

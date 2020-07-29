@@ -9,7 +9,7 @@ import { Input, Space } from 'antd';
 import { useHistory } from "react-router-dom"
 import { PageHeader } from 'antd';
 
-export default function ListDesEmprunt({ titre }) {
+export default function ListDesEmprunt() {
     //const [livres, setLivres] = useState([])
     const [searchText, setSearchText] = useState("")
     const [searchedColumn, setSearchedColumn] = useState("")
